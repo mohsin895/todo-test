@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('registration', [\App\Http\Controllers\Api\AuthController::class, 'signup']);
 Route::post('login', [\App\Http\Controllers\Api\AuthController::class,'login']);
 
-Route::middleware( Admin::class)->group(function () {
+Route::group(['middleware'=>['auth:sanctum']],function () {
 
     Route::get('/info',[\App\Http\Controllers\Api\User\UserController::class,'info']);
     Route::group(['prefix'=>'todo'], function(){
